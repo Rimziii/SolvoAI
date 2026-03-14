@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Solvo AI - Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">Solvo AI</div>
+
+    <button class="new-chat" onclick="createNewChat()">+ New Chat</button>
+
+    <div id="historyList" class="history"></div>
+
+<div class="logout-section">
+  <select id="themeSelect" onchange="changeTheme()">
+    <option value="dark">Dark</option>
+    <option value="light">Light</option>
+    <option value="levo">Levo</option>
+  </select>
+
+  <button onclick="logout()">Logout</button>
+</div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <div class="topbar">
+      <div></div>
+      <div id="usernameDisplay" class="username"></div>
+    </div>
+
+    <div id="messages" class="messages"></div>
+
+    <div class="input-area">
+      <textarea id="userInput" rows="1" placeholder="Message Solvo AI..."></textarea>
+      <button onclick="sendMessage()">➤</button>
+    </div>
+
+  </main>
+
+</div>
+
+<script src="chatbot.js"></script>
+</body>
+</html>
+
