@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Solvo AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .success { color: #a78bfa; }
+    .error { color: #f87171; }
+    .password-rules {
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .password-rules p {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin: 0.25rem 0;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-black text-white min-h-screen flex">
+  <!-- LEFT BRANDING -->
+  <div class="hidden md:flex w-1/3 flex-col justify-center items-center px-12 relative overflow-hidden">
+    <div class="absolute w-[400px] h-[400px] bg-purple-600 rounded-full blur-[150px] opacity-30"></div>
+    <h1 class="text-5xl font-extrabold mb-6 z-10">Solvo AI</h1>
+    <p class="text-gray-300 text-lg max-w-md text-center z-10">
+      Join Solvo AI and start automating with next-gen intelligence.
+    </p>
+  </div>
+
+  <!-- FORM SIDE -->
+  <div class="flex w-full md:w-2/3 justify-center items-center px-6">
+    <div class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl w-full max-w-md shadow-2xl border border-white/20">
+      <h2 class="text-3xl font-bold mb-6 text-center">Create Account</h2>
+      <form id="signup-form" class="space-y-4">
+        <input
+          type="email"
+          placeholder="Email address"
+          required
+          id="email"
+          class="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 outline-none border border-white/30 focus:border-purple-400 transition"
+        />
+        
+        <div class="relative">
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            id="password"
+            onkeyup="checkPassword()"
+            class="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 outline-none border border-white/30 focus:border-purple-400 transition pr-12"
+          />
+          <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white">
+            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Password Strength Rules -->
+        <div class="password-rules text-gray-400" id="password-rules">
+          <p id="length-rule">Minimum 8 characters</p>
+          <p id="letter-rule">At least one letter</p>
+          <p id="number-rule">At least one number</p>
+          <p id="special-rule">At least one special character (@#$!%)</p>
+        </div>
+        
+        <input
+          type="password"
+          placeholder="Confirm password"
+          required
+          id="confirm-password"
+          onkeyup="checkPassword()"
+          class="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 outline-none border border-white/30 focus:border-purple-400 transition"
+        />
+        
+        <button
+          type="submit"
+          class="w-full py-3 rounded-xl bg-purple-600 font-semibold hover:bg-purple-700 transition shadow-lg"
+        >
+          Sign Up
+        </button>
+      </form>
+      
+      <p class="text-center text-sm text-gray-400 mt-6">
+        Already have an account? <a href="login.html" class="text-purple-400 hover:underline">Sign In</a>
+      </p>
+      
+      <p id="message" class="text-red-400 text-sm text-center mt-4"></p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const pass = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+      const eyeOffIcon = document.getElementById('eye-off-icon');
+      
+      if (pass.type === 'password') {
+        pass.type = 'text';
+        eyeIcon.classList.add('hidden');
+        eyeOffIcon.classList.remove('hidden');
+      } else {
+        pass.type = 'password';
+        eyeIcon.classList.remove('hidden');
+        eyeOffIcon.classList.add('hidden');
+      }
+    }
+
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm-password').value;
+      const msg = document.getElementById('message');
+      
+      // Update password strength indicators
+      if (password.length >= 8) {
+        document.getElementById('length-rule').innerHTML = '✓ Minimum 8 characters';
+        document.getElementById('length-rule').classList.add('success');
+        document.getElementById('length-rule').classList.remove('error');
+      } else {
+        document.getElementById('length-rule').innerHTML = '❌ Minimum 8 characters';
+        document.getElementById('length-rule').classList.remove('success');
+        document.getElementById('length-rule').classList.add('error');
+      }
+      
+      if (/[a-zA-Z]/.test(password)) {
+        document.getElementById('letter-rule').innerHTML = '✓ At least one letter';
+        document.getElementById('letter-rule').classList.add('success');
+        document.getElementById('letter-rule').classList.remove('error');
+      } else {
+        document.getElementById('letter-rule').innerHTML = '❌ At least one letter';
+        document.getElementById('letter-rule').classList.remove('success');
+        document.getElementById('letter-rule').classList.add('error');
+      }
+      
+      if (/[0-9]/.test(password)) {
+        document.getElementById('number-rule').innerHTML = '✓ At least one number';
+        document.getElementById('number-rule').classList.add('success');
+        document.getElementById('number-rule').classList.remove('error');
+      } else {
+        document.getElementById('number-rule').innerHTML = '❌ At least one number';
+        document.getElementById('number-rule').classList.remove('success');
+        document.getElementById('number-rule').classList.add('error');
+      }
+      
+      if (/[@#$!%]/.test(password)) {
+        document.getElementById('special-rule').innerHTML = '✓ At least one special character';
+        document.getElementById('special-rule').classList.add('success');
+        document.getElementById('special-rule').classList.remove('error');
+      } else {
+        document.getElementById('special-rule').innerHTML = '❌ At least one special character (@#$!%)';
+        document.getElementById('special-rule').classList.remove('success');
+        document.getElementById('special-rule').classList.add('error');
+      }
+      
+      // Check if passwords match
+      if (password && confirm && password !== confirm) {
+        msg.innerText = 'Passwords do not match.';
+        msg.className = 'text-red-400 text-sm text-center mt-4';
+      } else {
+        msg.innerText = '';
+      }
+    }
+
+    function isPasswordStrong(password) {
+      return (
+        password.length >= 8 &&
+        /[a-zA-Z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[@#$!%]/.test(password)
+      );
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm-password').value;
+      const msg = document.getElementById('message');
+      
+      if (password !== confirm) {
+        msg.innerText = 'Passwords must match.';
+        msg.className = 'text-red-400 text-sm text-center mt-4';
+        return;
+      }
+      
+      if (!isPasswordStrong(password)) {
+        msg.innerText = 'Password does not meet the strength requirements.';
+        msg.className = 'text-red-400 text-sm text-center mt-4';
+        return;
+      }
+
+      try {
+        const res = await fetch('/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await res.json();
+        
+        if (!res.ok) {
+          msg.innerText = data.error || 'Registration failed';
+          msg.className = 'text-red-400 text-sm text-center mt-4';
+          return;
+        }
+
+        // Success - redirect to username selection
+        msg.innerText = 'Registration successful! Redirecting to username selection...';
+        msg.className = 'text-green-400 text-sm text-center mt-4';
+        
+        // Store the registered email for username page
+        localStorage.setItem('registeredEmail', email);
+        
+        setTimeout(() => {
+          window.location.href = '/username.html';
+        }, 1500);
+        
+      } catch (err) {
+        console.error(err);
+        msg.innerText = 'Registration failed — cannot reach server.';
+        msg.className = 'text-red-400 text-sm text-center mt-4';
+      }
+    });
+  </script>
+</body>
+</html>

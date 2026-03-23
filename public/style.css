@@ -1,0 +1,421 @@
+:root {
+  --bg: #0f172a;
+  --sidebar: #111827;
+  --chat-bg: #1f2937;
+  --text: #ffffff;
+  --primary: #6366f1;
+}
+
+body.light {
+  --bg: #f9fafb;
+  --sidebar: #ffffff;
+  --chat-bg: #ffffff;
+  --text: #111827;
+  --primary: #4f46e5;
+}
+
+body.levo {
+  --bg: linear-gradient(135deg,#140f2d,#2a1b5a,#4c1d95);
+  --sidebar: #1c1245;
+  --chat-bg: rgba(255,255,255,0.08);
+  --text: #ffffff;
+  --primary: #a78bfa;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+}
+
+/* Layout */
+.app {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: var(--sidebar);
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  background: var(--primary);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-chat, .collapse, .bottom button {
+  background: var(--primary);
+  border: none;
+  padding: 8px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.conversations {
+  flex: 1;
+  margin-top: 20px;
+  overflow-y: auto;
+}
+
+.conversations div {
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.conversations div:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Main Chat */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.messages {
+  width: 100%;
+  max-width: 750px;
+  padding: 30px 20px 80px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Chat bubbles */
+.message {
+  display: flex;
+  gap: 12px;
+  max-width: 100%;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.bubble {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--chat-bg);
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.user .bubble {
+  background: var(--primary);
+  color: white;
+}
+
+/* Input */
+.input-area {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  max-width: 750px;
+  display: flex;
+  gap: 10px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(15px);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.input-area button {
+  background: var(--primary);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.welcome {
+  text-align: center;
+  margin-top: 120px;
+  opacity: 0.9;
+}
+
+.welcome h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Chatbot.html specific styles */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--sidebar);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+}
+
+.username {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.logout-section {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.logout-section button {
+  width: 100%;
+  background: #ef4444;
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout-section button:hover {
+  background: #dc2626;
+}
+
+.history {
+  flex: 1;
+  overflow-y: auto;
+  margin: 15px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 10px;
+}
+
+.history-item {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.history-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main .messages {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main .input-area {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0;
+}
+
+/* Theme Styles */
+select#themeSelect {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* DARK THEME */
+body.dark {
+  background: #1e1e1e;
+  color: white;
+}
+
+/* LIGHT THEME */
+body.light {
+  background: #f5f5f5;
+  color: black;
+}
+
+body.light .sidebar {
+  background: #ffffff;
+  color: black;
+}
+
+body.light .main {
+  background: #f0f0f0;
+  color: black;
+}
+
+/* LEVO THEME (Purple style) */
+body.levo {
+  background: #1a102e;
+  color: white;
+}
+
+body.levo .sidebar {
+  background: #2a1b4d;
+}
+
+body.levo .main {
+  background: #1a102e;
+}
+
+/* Message Styles for chatbot.html */
+.message-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.message-wrapper.user {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.message-wrapper.user .avatar {
+  order: 2;
+  margin-left: 8px;
+}
+
+/* 🌸 User Bubble */
+.message-wrapper.user .bubble {
+  background: linear-gradient(135deg, #ff9ecf, #ff6fb5);
+  color: white;
+  padding: 12px;
+  border-radius: 18px;
+  max-width: 70%;
+}
+
+/* 💜 AI Bubble */
+.message-wrapper.bot .bubble {
+  background: linear-gradient(135deg, #c084fc, #8b5cf6);
+  color: white;
+  padding: 12px;
+  border-radius: 18px;
+  max-width: 70%;
+}
+
+.copy-btn {
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  background: #6d28d9;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 8px;
+}
+
+.code-block {
+  position: relative;
+  background: #111;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.code-block pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.code-copy {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  background: #8a2be2;
+  color: white;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
